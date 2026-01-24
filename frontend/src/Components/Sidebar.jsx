@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({
-  isSidebarOpen,
-  setCurrentSection,
-  currentSection,
-  handleSidebarToggle,
-}) => {
+const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
   const links = [
     { name: "HTML", to: "html", id: 1 },
     { name: "HTML & CSS", to: "html-css", id: 2 },
@@ -31,7 +26,7 @@ const Sidebar = ({
             <h2 className="text-xl font-semibold tracking-tight">
               Laxmi Narayan
             </h2>
-            <p className="text-xs text-white/60">Task Portfolio</p>
+            <p className="text-xs text-white/60">Task Dashboard</p>
           </div>
         </div>
 
@@ -57,7 +52,6 @@ const Sidebar = ({
                                             : "text-white/70 hover:text-white hover:bg-white/5"
                                         }`}
                     onClick={() => {
-                      setCurrentSection(link.to);
                       navigate(`/${link.to}`);
                       handleSidebarToggle();
                     }}
