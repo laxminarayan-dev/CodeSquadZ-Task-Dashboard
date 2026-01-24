@@ -14,29 +14,29 @@ const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
     // Sidebar container with responsive slide-in and modern styling
     <div
       className={`fixed left-0 top-0 h-screen w-72 md:w-64 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:relative md:translate-x-0 z-40
-            bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 text-white border-r border-white/10 shadow-2xl`}
+            bg-linear-to-b from-slate-200 via-slate-100 to-slate-200 text-slate-950 border-r border-slate-900/10 shadow-2xl`}
     >
       <div className="relative z-20 h-screen flex flex-col">
         {/* Header / Profile */}
         <div className="px-5 pt-6 pb-4 flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-sm font-bold">
+          <div className="h-10 w-10 text-slate-200 rounded-full bg-slate-900/90 backdrop-blur-xl border border-slate-900/90 flex items-center justify-center text-sm font-bold">
             LN
           </div>
           <div className="flex-1">
-            <h2 className="text-xl font-semibold tracking-tight">
+            <h2 className="text-xl text-slate-950 font-semibold tracking-tight">
               Laxmi Narayan
             </h2>
-            <p className="text-xs text-white/60">Task Dashboard</p>
+            <p className="text-xs text-slate-700">Task Dashboard</p>
           </div>
         </div>
 
         <div className="px-5">
-          <div className="h-px w-full bg-white/10" />
+          <div className="h-px w-full bg-slate-900/10" />
         </div>
 
         {/* Navigation */}
         <nav className="px-5 py-5 flex-1 overflow-y-auto">
-          <p className="text-xs uppercase tracking-wider font-semibold mb-3 text-white/60">
+          <p className="text-xs uppercase tracking-wider font-semibold mb-3 text-slate-700/60">
             Type of Tasks
           </p>
           <ul className="flex flex-col gap-2">
@@ -48,8 +48,8 @@ const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
                     className={`group flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200
                                         ${
                                           isActive
-                                            ? "bg-white/10 text-white border border-white/20 shadow-md"
-                                            : "text-white/70 hover:text-white hover:bg-white/5"
+                                            ? "bg-slate-900 text-slate-100 border border-slate-900/20 shadow-md"
+                                            : "text-slate-700/70 hover:text-slate-900 hover:bg-white/5"
                                         }`}
                     onClick={() => {
                       navigate(`/${link.to}`);
@@ -57,7 +57,7 @@ const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
                     }}
                   >
                     <span
-                      className={`h-2 w-2 rounded-full ${isActive ? "bg-emerald-400" : "bg-white/40 group-hover:bg-white/70"}`}
+                      className={`h-2 w-2 rounded-full ${isActive ? "bg-emerald-400" : "bg-slate-900/40 group-hover:bg-slate-900/70"}`}
                     />
                     <span className="truncate">{link.name}</span>
                   </button>
@@ -66,14 +66,6 @@ const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
             })}
           </ul>
         </nav>
-
-        {/* Footer Accent */}
-        <div className="mt-auto px-5 py-4 text-[11px] text-white/50">
-          <div className="flex items-center gap-2">
-            <span className="h-px w-6 bg-white/10" />
-            <span>Crafted with React & Tailwind</span>
-          </div>
-        </div>
       </div>
     </div>
   );
