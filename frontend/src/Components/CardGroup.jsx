@@ -14,7 +14,7 @@ const CardGroup = ({ taskData, currentSection }) => {
             <div className={`p-5 h-[inherit]`}>
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                  <p className="text-md font-semibold text-slate-900">
+                  <p className="text-md font-semibold text-slate-900 line-clamp-1">
                     Task {task.id}: {task.title}
                   </p>
                   <p className="text-xs text-slate-600 mt-1 line-clamp-1">
