@@ -1,11 +1,9 @@
 import { FaHtml5, FaCss3, FaJsSquare, FaReact } from "react-icons/fa";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import { useTaskContext } from "../hooks/useTaskContext";
 import { useState } from "react";
 
-function Card({ task, editable = false, onEdit, onDelete }) {
-  const { fetchTasks } = useTaskContext();
+function Card({ task, editable = false, onEdit, onDelete, fetchTasks }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
 

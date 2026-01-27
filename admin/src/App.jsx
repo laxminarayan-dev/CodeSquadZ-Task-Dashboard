@@ -1,11 +1,52 @@
 import { IoClose } from "react-icons/io5";
 import { CgMenuRight } from "react-icons/cg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./compononts/Sidebar";
-import { Outlet } from "react-router-dom";
+import Main from "./pages/Main";
+import Tasks from "./pages/Tasks";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [tasks, setTasks] = useState({});
+  const [currentPage, setCurrentPage] = useState("dashboard");
+  const [displayData, setDisplayData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchTasks = async () => {
+    setLoading(true);
+    try {
+      // Uncomment this when backend is ready
+      const response = await fetch("./api/tasks");
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch tasks");
+      }
+      const data = await response.json();
+      setTasks(data.data);
+
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  useEffect(() => {
+    // Combine all tasks and sort by createdAt descending
+    const tempData = [
+      ...(tasks?.html || []),
+      ...(tasks?.["html-css"] || []),
+      ...(tasks?.["html-css-js"] || []),
+      ...(tasks?.react || []),
+    ];
+    tempData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    setDisplayData(tempData);
+  }, [tasks]);
+
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
@@ -25,7 +66,7 @@ function App() {
         <div
           className={`min-h-screen z-20 fixed top-0 md:left-0 transition-all duration-500 ${isSidebarOpen ? "left-0" : "-left-52"}`}
         >
-          <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+          <Sidebar setIsSidebarOpen={setIsSidebarOpen} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
         {/* main content */}
         <div className="z-0 flex-1 relative min-h-screen overflow-y-auto md:ml-52">
@@ -35,7 +76,15 @@ function App() {
           >
             <CgMenuRight />
           </button>
-          <Outlet />
+          {currentPage === "dashboard" && <Main displayData={displayData} fetchTasks={fetchTasks} />}
+          {currentPage === "tasks" && <Tasks tasks={tasks} />}
+          {currentPage === "settings" && (<div className="p-6">
+            <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+            <div className="mt-2">
+              <p className="text-slate-600">Manage your settings here.</p>
+            </div>
+          </div>)
+          }
         </div>
       </div>
     </>

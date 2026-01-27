@@ -1,9 +1,6 @@
-import React from "react";
-import { useTaskContext } from "../hooks/useTaskContext";
 import Card from "../compononts/Card";
 
-function Tasks() {
-  const { tasks } = useTaskContext();
+function Tasks({ tasks }) {
   return (
     <div className="p-6">
       {/* header */}

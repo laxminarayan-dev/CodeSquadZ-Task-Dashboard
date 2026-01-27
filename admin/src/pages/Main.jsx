@@ -1,9 +1,7 @@
 import Form from "../compononts/Form";
 import Card from "../compononts/Card";
-import { useTaskContext } from "../hooks/useTaskContext";
 
-function Main() {
-  const { displayData, fetchTasks } = useTaskContext();
+function Main({ displayData = [], fetchTasks }) {
   return (
     <>
       {/* actual content */}
