@@ -19,10 +19,10 @@ function Card({ task, editable = false, fetchTasks }) {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: editedTask.title,
-          detail: editedTask.detail,
-          link: editedTask.link,
-          code: editedTask.code,
+          title: updatedTask.title,
+          detail: updatedTask.detail,
+          link: updatedTask.link,
+          code: updatedTask.code,
           technology: task.technology
         }),
       });

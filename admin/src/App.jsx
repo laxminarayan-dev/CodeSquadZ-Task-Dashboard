@@ -77,7 +77,7 @@ function App() {
             <CgMenuRight />
           </button>
           {currentPage === "dashboard" && <Main displayData={displayData} fetchTasks={fetchTasks} />}
-          {currentPage === "tasks" && <Tasks tasks={tasks} />}
+          {currentPage === "tasks" && <Tasks tasks={tasks} fetchTasks={fetchTasks} />}
           {currentPage === "settings" && (<div className="p-6">
             <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
             <div className="mt-2">

@@ -1,6 +1,6 @@
 import Card from "../compononts/Card";
 
-function Tasks({ tasks }) {
+function Tasks({ tasks, fetchTasks }) {
   return (
     <div className="p-6">
       {/* header */}
@@ -20,7 +20,7 @@ function Tasks({ tasks }) {
             >
               {tasks[category].length > 0 ? (
                 tasks[category].map((task) => (
-                  <Card key={task.id} task={task} editable={true} />
+                  <Card key={task.id} task={task} editable={true} fetchTasks={fetchTasks} />
                 ))
               ) : (
                 <p className="text-slate-600">No tasks in this category.</p>
