@@ -15,6 +15,9 @@ function Card({ task, editable = false, fetchTasks }) {
         technology: task.technology,
       };
 
+      console.log(updatedTask);
+
+
       const response = await fetch(`./api/tasks/${task.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -26,6 +29,9 @@ function Card({ task, editable = false, fetchTasks }) {
           technology: task.technology
         }),
       });
+
+      console.log(response);
+
 
       if (!response.ok) {
         throw new Error("Failed to update task");
