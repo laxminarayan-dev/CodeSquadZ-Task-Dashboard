@@ -12,6 +12,7 @@ function Root() {
         <Route path="html-css" element={<Main />} />
         <Route path="html-css-js" element={<Main />} />
         <Route path="react" element={<Main />} />
+        <Route path="*" element={<Main />} />
       </Route>
     </Routes>
   );
