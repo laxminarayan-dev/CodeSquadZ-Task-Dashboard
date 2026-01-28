@@ -13,10 +13,10 @@ const MainContent = ({
     <Fragment>
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-violet-500">
             Dashboard
           </h1>
-          <p className="text-sm md:text-base text-slate-600">
+          <p className="text-sm md:text-base text-violet-400">
             Welcome to Laxmi Narayan's task dashboard.
           </p>
         </div>

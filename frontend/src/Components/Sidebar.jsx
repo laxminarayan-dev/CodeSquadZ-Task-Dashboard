@@ -57,7 +57,7 @@ const Sidebar = ({ isSidebarOpen, currentSection, handleSidebarToggle }) => {
                     }}
                   >
                     <span
-                      className={`h-2 w-2 rounded-full ${isActive ? "bg-emerald-400" : "bg-slate-900/40 group-hover:bg-slate-900/70"}`}
+                      className={`h-2 w-2 rounded-full ${isActive ? "bg-violet-400" : "bg-slate-900/40 group-hover:bg-slate-900/70"}`}
                     />
                     <span className="truncate">{link.name}</span>
                   </button>

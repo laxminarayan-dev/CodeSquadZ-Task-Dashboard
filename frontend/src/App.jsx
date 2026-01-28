@@ -23,7 +23,7 @@ function App() {
       try {
         const response = await fetch(`${backend_url}/api/tasks`);
         const data = await response.json();
-        setTaskData(data.data);
+        setTaskData(data);
       } catch (error) {
         console.error("Error fetching task data:", error);
       }
