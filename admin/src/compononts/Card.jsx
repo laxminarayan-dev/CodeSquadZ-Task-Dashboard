@@ -195,14 +195,14 @@ function Card({ data, editable = false, fetchTasks }) {
           ) : (
             <>
               <button
-                onClick={() => window.open(task.link || "#", "_blank")}
+                onClick={() => window.open(task.siteLink || "#", "_blank")}
                 className={`bg-white border border-slate-300 rounded-2xl flex-1 flex items-center justify-center gap-2 text-xs font-medium text-slate-700 px-3 py-2 z-20`}
               >
                 <FiExternalLink className="text-sm" />
                 <span>View Project</span>
               </button>
               <button
-                onClick={() => window.open(task.code || "#", "_blank")}
+                onClick={() => window.open(task.codeLink || "#", "_blank")}
                 className={`bg-slate-700 rounded-2xl flex-1 flex items-center justify-center gap-2 text-xs font-medium text-white px-3 py-2 transition-colors z-20`}
               >
                 <FiGithub className="text-sm" />
