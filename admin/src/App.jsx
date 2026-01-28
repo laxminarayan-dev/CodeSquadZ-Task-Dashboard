@@ -22,8 +22,7 @@ function App() {
         throw new Error("Failed to fetch tasks");
       }
       const data = await response.json();
-      setTasks(data.data);
-
+      setTasks(data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
     } finally {
@@ -37,14 +36,15 @@ function App() {
 
   useEffect(() => {
     // Combine all tasks and sort by createdAt descending
-    const tempData = [
-      ...(tasks?.html || []),
-      ...(tasks?.["html-css"] || []),
-      ...(tasks?.["html-css-js"] || []),
-      ...(tasks?.react || []),
-    ];
-    tempData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setDisplayData(tempData);
+    if (tasks === null) return;
+    const sortedData = Object.entries(tasks)
+      .sort(([, a], [, b]) => new Date(b.createdAt) - new Date(a.createdAt))
+      .reduce((acc, [id, value]) => {
+        acc[id] = value;
+        return acc;
+      }, {});
+
+    setDisplayData(sortedData);
   }, [tasks]);
 
   const toggleSidebar = () => {
@@ -66,7 +66,11 @@ function App() {
         <div
           className={`min-h-screen z-20 fixed top-0 md:left-0 transition-all duration-500 ${isSidebarOpen ? "left-0" : "-left-52"}`}
         >
-          <Sidebar setIsSidebarOpen={setIsSidebarOpen} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <Sidebar
+            setIsSidebarOpen={setIsSidebarOpen}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
         {/* main content */}
         <div className="z-0 flex-1 relative min-h-screen overflow-y-auto md:ml-52">
@@ -76,15 +80,20 @@ function App() {
           >
             <CgMenuRight />
           </button>
-          {currentPage === "dashboard" && <Main displayData={displayData} fetchTasks={fetchTasks} />}
-          {currentPage === "tasks" && <Tasks tasks={tasks} fetchTasks={fetchTasks} />}
-          {currentPage === "settings" && (<div className="p-6">
-            <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-            <div className="mt-2">
-              <p className="text-slate-600">Manage your settings here.</p>
+          {currentPage === "dashboard" && (
+            <Main displayData={displayData} fetchTasks={fetchTasks} />
+          )}
+          {currentPage === "tasks" && (
+            <Tasks tasks={tasks} fetchTasks={fetchTasks} />
+          )}
+          {currentPage === "settings" && (
+            <div className="p-6">
+              <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+              <div className="mt-2">
+                <p className="text-slate-600">Manage your settings here.</p>
+              </div>
             </div>
-          </div>)
-          }
+          )}
         </div>
       </div>
     </>

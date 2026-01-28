@@ -1,43 +1,48 @@
 import { FaHtml5, FaCss3, FaJsSquare, FaReact } from "react-icons/fa";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Card({ task, editable = false, fetchTasks }) {
+function Card({ data, editable = false, fetchTasks }) {
+  const [task, setTask] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
+
+  useEffect(() => {
+    const formatTask = {
+      id: data[0],
+      ...data[1],
+    };
+    setTask(formatTask);
+    setEditedTask(formatTask);
+  }, [data]);
 
   const handleSave = async () => {
     try {
       const updatedTask = {
         ...editedTask,
-        id: task.id,
-        technology: task.technology,
       };
 
       console.log(updatedTask);
 
-
-      const response = await fetch(`./api/tasks/${task.id}`, {
-        method: "PUT",
+      const response = await fetch(`./api/tasks/update/${task.id}`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: updatedTask.title,
           detail: updatedTask.detail,
-          link: updatedTask.link,
-          code: updatedTask.code,
-          technology: task.technology
+          siteLink: updatedTask.siteLink,
+          codeLink: updatedTask.codeLink,
+          technology: task.technology,
+          createdAt: task.createdAt,
         }),
       });
 
       console.log(response);
 
-
       if (!response.ok) {
         throw new Error("Failed to update task");
       }
-
-      const data = await response.json();
 
       setIsEditing(false);
       fetchTasks();
@@ -54,8 +59,8 @@ function Card({ task, editable = false, fetchTasks }) {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`./api/tasks/${task.id}`, {
-        method: "DELETE",
+      const response = await fetch(`./api/tasks/delete/${task.id}`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ technology: task.technology }),
       });
@@ -73,7 +78,6 @@ function Card({ task, editable = false, fetchTasks }) {
 
   return (
     <div
-      key={task.id}
       className={`group rounded-xl border border-slate-200 bg-linear-to-br from-slate-50 via-indigo-100 to-slate-50 shadow-sm hover:shadow-md transition-all duration-300 ease-in-out overflow-hidden ${isEditing ? "min-h-58" : "h-34"} max-w-102`}
     >
       <div className={`p-5 ${isEditing ? "" : "h-[inherit]"}`}>
@@ -136,18 +140,18 @@ function Card({ task, editable = false, fetchTasks }) {
           <div className="flex flex-col gap-2 mb-3">
             <input
               type="url"
-              value={editedTask.link || ""}
+              value={editedTask.siteLink || ""}
               onChange={(e) =>
-                setEditedTask({ ...editedTask, link: e.target.value })
+                setEditedTask({ ...editedTask, siteLink: e.target.value })
               }
               placeholder="Project Link"
               className="flex-1 text-sm border border-slate-300 rounded px-2 py-1"
             />
             <input
               type="url"
-              value={editedTask.code || ""}
+              value={editedTask.codeLink || ""}
               onChange={(e) =>
-                setEditedTask({ ...editedTask, code: e.target.value })
+                setEditedTask({ ...editedTask, codeLink: e.target.value })
               }
               placeholder="Code Link"
               className="flex-1 text-sm border border-slate-300 rounded px-2 py-1"

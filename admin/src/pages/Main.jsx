@@ -18,8 +18,10 @@ function Main({ displayData = [], fetchTasks }) {
           <div>
             <h1 className="text-xl font-bold">Recent Tasks</h1>
             <div className="mt-4 grid-scroll grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {displayData.length > 0 ? (
-                displayData.map((task) => <Card key={task.id} task={task} />)
+              {Object.keys(displayData).length > 0 ? (
+                Object.entries(displayData).map((task) => (
+                  <Card key={task[0]} data={task} />
+                ))
               ) : (
                 <p className="text-slate-600">No tasks available.</p>
               )}

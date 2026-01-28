@@ -114,7 +114,7 @@ function Form({ fetchTasks }) {
     if (validateForm()) {
       try {
         // Send data to backend API (using relative path since admin will be served from same origin)
-        const response = await fetch("./api/tasks", {
+        const response = await fetch("./api/tasks/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
